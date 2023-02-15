@@ -1,92 +1,70 @@
-# tutorial-1
+# Tutorial 1
 
+Setelah mempelajari dasar-dasar dari Spring Boot pada `tutorial-0` sebelumnya, kamu akan mulai belajar menerapkan ide-ide design pattern menggunakan Spring Boot. Dalam tutorial ini, kamu akan berkenalan dengan dua jenis design pattern, yaitu `Strategy Pattern` dan `Observer Pattern`.
 
+## Strategy Pattern
 
-## Getting started
+------------------------
+Dalam `tutorial-1` ini, kamu akan membantu seorang juragan mencari **strategi** terbaik untuk perjalanannya. Juragan tersebut harus memikirkan dua hal untuk perjalanannya, yaitu **lokasi tujuan** dan **alat transportasi** perjalanan. Dari kedua faktor tersebut, akan diketahui **harga**, **waktu**, dan tingkat **satisfaction** sang juragan dari perjalanan tersebut.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Kamu diharapkan dapat melengkapi beberapa bagian kode yang ditandai dengan `//TODO`. Tarif perjalanan dihitung dengan ketentuan berikut:
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- Untuk transportasi berupa motor, tarif perjalanan yang tidak lebih dari 2 km adalah **Rp5.000,00**. Selebihnya akan dikenakan tambahan biaya **Rp1.500,00 per km**. Jarak maksimum yang dapat ditempuh oleh jasa transportasi motor adalah **25 km**.
+- Untuk transportasi berupa mobil, tarif perjalanan yang tidak lebih dari 2 km adalah **Rp10.000,00**. Selebihnya akan dikenakan tambahan biaya **Rp3.500,00 per km**. Jarak maksimum yang dapat ditempuh oleh jasa transportasi mobil adalah **50 km**.
+- Untuk transportasi berupa pesawat terbang, tarif perjalanan hanya meningkat setiap kelipatan 100 km. Sebagai contoh, tarif perjalanan untuk jarak 300 dan 301 km adalah sama, tetapi tarif perjalanan untuk jarak 300 km berbeda dengan 400 km. Tarif perjalanan untuk jarak minimum yang dapat ditempuh oleh jasa transportasi pesawat terbang (300 km) adalah **Rp500.000,00**, sementara besar peningkatan tarif setiap 100 km adalah **Rp150.000,00**.
 
-## Add your files
+Selain menghitung *cost* secara finansial, kamu juga menghitung *cost* berupa waktu untuk masing-masing moda transportasi dengan ketentuan berikut:
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- Kecepatan rata-rata jasa transportasi motor adalah **40 km/jam**.
+- Kecepatan rata-rata jasa transportasi mobil adalah **30 km/jam**.
+- Kecepatan rata-rata pesawat terbang adalah **800 km/jam**.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.cs.ui.ac.id/AdvProg/reguler-2023/mahasiswa/kelas-b/2106752464-Yan-Christofer-S.-/tutorial-1.git
-git branch -M main
-git push -uf origin main
-```
+Terakhir, kamu juga menghitung estimasi *cost* berupa tingkat kepuasan (*satisfaction*) dengan skala 1-10. Setiap perjalanan dimulai dengan tingkat kepuasan maksimum, yaitu 10. Setelah itu, tingkat kepuasan akan berubah sesuai ketentuan berikut:
 
-## Integrate with your tools
+- **Moda Motor**
+    - Konstan pada **10 km** pertama.
+    - Turun **1 poin setiap 10 km berikutnya** karena sulit untuk mengubah posisi duduk di motor.
+ - **Moda Mobil**
+    - Turun **1 poin setiap 5 km berikutnya** karena mobil rawan terjebak macet.
+- **Moda Pesawat Terbang**
+    - Turun sebanyak **1 poin setiap 100 km** karena kabin penumpang pesawat terbang yang cukup dingin.
 
-- [ ] [Set up project integrations](https://gitlab.cs.ui.ac.id/AdvProg/reguler-2023/mahasiswa/kelas-b/2106752464-Yan-Christofer-S.-/tutorial-1/-/settings/integrations)
+Setelah mengimplementasikan kode untuk perhitungan-perhitungan tersebut, kamu juga harus memastikan bahwa hasil perhitungan tersebut dapat dilihat oleh juragan melalui *endpoint* `/transport` yang memiliki tampilan sebagai berikut.
 
-## Collaborate with your team
+![Tampilan Kalkulator Transportasi di Endpoint /transport](/transport-calculator-screenshot.png)
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### UML Diagram
 
-## Test and Deploy
+![Diagram UML Strategy Pattern](/Strategy-UML.png)
 
-Use the built-in continuous integration in GitLab.
+## Observer Pattern - Newsletter Service
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+------------------------
 
-***
+Melihat performamu yang begitu bagus dalam membantu seorang juragan dalam menyelesaikan masalahnya, kamu direkrut oleh sebuah perusahaan ternama yang menyediakan layanan `Newsletter`. Dengan bayaran yang cukup menarik, kamu pun memutuskan untuk menerima tawaran tersebut.
 
-# Editing this README
+Atasanmu, Pak Arsene langsung memintamu untuk menyelesaikan sebuah program baru yang akan digunakan untuk mengirim Newsletter. Mengingat ini adalah pekerjaan pertamamu di tempat ini, kamu sudah diberikan struktur kode yang sudah dibuat oleh senior di tempat kerjamu dan beberapa instruksi lanjutan untuk menyelesaikan program tersebut. Tentunya program ini harus dibuat dengan *design pattern* yang tepat terhadap masalah yang ada.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Perusahaan ini menyediakan 3 layanan Newsletter, yaitu GameStart yang menyediakan berita mengenai game, Koped Travel yang menyediakan berita mengenai tempat wisata, dan BI Sports yang mengirimkan berita mengenai hasil pertandingan. Kamu harus melengkapi fitur agar pelanggan dapat melakukan `subscribe` maupun `unsubcribe` dari suatu kategori Newsletter pada endpoint `/newsletter/subscribe`.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Tidak hanya itu, sistem ini tidak akan lengkap jika pelanggan yang telah berlangganan tidak bisa menerima berita. Aneh rasanya jika pelanggan tidak bisa menerima apapun, bukan? Jadi, kamu juga harus melengkapi program tersebut agar pelanggan dapat menerima notifikasi kiriman dari kategori yang sesuai dengan yang ada pada endpoint `/newsletter`.
 
-## Name
-Choose a self-explaining name for your project.
+Saat menguji pada bagian HTML-nya, kamu juga melihat bahwa data yang dikirim dari BackEnd masih dalam bentuk hardcode. Kamu berinisiatif untuk memperbaikinya agar program tidak lagi menggunakan hardcode.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Contoh Interaksi
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Pada endpoint `/newsletter/subscribe`, kamu akan melihat halaman sebagai berikut. Disini, kamu dapat melihat daftar `User` yang berlangganan pada masing-masing kategori Newsletter. 
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Kamu juga dapat melakukan `subscribe` dan `unsubscribe` pada masing-masing kategori Newsletter.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+![Tampilan Halaman Subscribe Newsletter](/subscribe-manager-screenshot.jpeg)
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Pada endpoint `/newsletter`, kamu akan melihat halaman sebagai berikut. Disini, kamu dapat melihat daftar `User` yang berlangganan pada masing-masing kategori Newsletter.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Kamu juga dapat mengirim edisi baru `Newsletter` dan melihat hasilnya pada masing-masing *inbox* `User`.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+![Tampilan Halaman Newsletter Service](/newsletter-service-screenshot.jpeg)
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### UML Diagram
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+![Diagram UML Observer Pattern](/observer-uml.png)
