@@ -40,6 +40,7 @@ public class NewsServiceImpl implements NewsService {
         }
         return names;
     }
+
     @Override
     public List<String> getAllNewslettersName() {
         List<String> names = new ArrayList<>();
@@ -79,17 +80,34 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void handleNewBroadcast(String newsletterName) {
-        // TODO: Lengkapi method ini
+        Newsletter newsletter = newsletterRepository.findByName(newsletterName);
+
+        if (newsletter != null) {
+            for (Subscriber subscriber : newsletter.getSubscribers()) {
+                User user = userRepository.findByName(subscriber.getName());
+                user.handleNotification(newsletter.getName());
+            }
+        }
     }
 
     @Override
     public void handleSubscribe(String userName, String newsletterName) {
-        // TODO: Lengkapi method ini
+        User user = userRepository.findByName(userName);
+        Newsletter newsletter = newsletterRepository.findByName(newsletterName);
+
+        if (user != null && newsletter != null) {
+            newsletter.addSubscriber(user);
+        }
     }
 
     @Override
     public void handleUnsubscribe(String userName, String newsletterName) {
-        // TODO: Lengkapi method ini
+        User user = userRepository.findByName(userName);
+        Newsletter newsletter = newsletterRepository.findByName(newsletterName);
+
+        if (user != null && newsletter != null) {
+            newsletter.removeSubscriber(user);
+        }
     }
 
 }
