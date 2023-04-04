@@ -19,9 +19,9 @@ public class LocationInitializer {
     @PostConstruct
     public void init() {
         locationRepository.addLocation(new Location("Johor", 2560.0));
-        locationRepository.addLocation(new Location("Surabaya", 1200.0));
+        locationRepository.addLocation(new Location("Surabaya", 350.0));
         locationRepository.addLocation(new Location("Puncak", 40.0));
-        locationRepository.addLocation(new Location("Depok", 10.0));
+        locationRepository.addLocation(new Location("Depok", 2.0));
     }
 
 }
